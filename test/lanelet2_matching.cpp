@@ -66,7 +66,7 @@ inline BasicPolygon2d absoluteHull(const BasicPolygon2d& relativeHull, const mat
 class MatchingUtils : public ::testing::Test {
  public:
   MatchingUtils() { map = load(exampleMapPath, projector); }
-  std::string exampleMapPath = std::string(PKG_DIR) + "/../lanelet2/lanelet2_maps/res/mapping_example.osm";
+  std::string exampleMapPath = std::string(PKG_DIR) + "/test/mapping_example.osm";
   projection::UtmProjector projector{Origin({49, 8.4})};
   LaneletMapPtr map;
 };
