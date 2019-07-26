@@ -105,7 +105,7 @@ TEST_F(MatchingUtils, findWithin) {  // NOLINT
   std::vector<std::pair<double, Lanelet>> laneletsWithDistance =
       matching::utils::findWithin(map->laneletLayer, obj, 0.1);
 
-  EXPECT_EQ(4, laneletsWithDistance.size());
+  EXPECT_EQ(4ul, laneletsWithDistance.size());
 
   Ids laneletIds;
   std::transform(laneletsWithDistance.begin(), laneletsWithDistance.end(), std::back_inserter(laneletIds),
@@ -182,7 +182,7 @@ TEST_F(Matching, deterministicNonConst) {  // NOLINT
         << "Not sorted: at i=" << i - 1 << " dist = " << matches.at(i - 1).distance << "at i=" << i
         << " dist = " << matches.at(i).distance;
   }
-  EXPECT_EQ(14, matches.size());
+  EXPECT_EQ(14ul, matches.size());
   EXPECT_NEAR(0.69, matches.at(8).distance, 0.1);
   EXPECT_EQ(45330, matches.at(8).lanelet.id());
   EXPECT_NEAR(0.69, matches.at(9).distance, 0.1);
@@ -193,7 +193,7 @@ TEST_F(Matching, deterministicConst) {  // NOLINT
   using namespace lanelet::matching;
   const LaneletMap& constMap = *map;
   auto matches = getDeterministicMatches(constMap, obj, 4.);
-  EXPECT_EQ(14, matches.size());
+  EXPECT_EQ(14ul, matches.size());
 }
 
 TEST_F(Matching, probabilisticNonConst) {  // NOLINT
@@ -205,14 +205,14 @@ TEST_F(Matching, probabilisticNonConst) {  // NOLINT
   EXPECT_NEAR(0.288177, matches.at(0).mahalanobisDistSq, 0.001);
   EXPECT_EQ(45334, matches.at(0).lanelet.id());
   EXPECT_FALSE(matches.at(0).lanelet.inverted()) << "best match must be non inverted 45334";
-  EXPECT_EQ(14, matches.size());
+  EXPECT_EQ(14ul, matches.size());
 }
 
 TEST_F(Matching, probabilisticConst) {  // NOLINT
   using namespace lanelet::matching;
   const LaneletMap& constMap = *map;
   auto matches = getProbabilisticMatches(constMap, obj, 4.);
-  EXPECT_EQ(14, matches.size());
+  EXPECT_EQ(14ul, matches.size());
 }
 
 TEST_F(Matching, isCloseTo) {  // NOLINT
@@ -233,14 +233,14 @@ TEST_F(Matching, isCloseTo) {  // NOLINT
 TEST_F(Matching, filterNonCompliantProbabilistic) {  // NOLINT
   using namespace lanelet::matching;
   auto matches = getProbabilisticMatches(*map, obj, 4.);
-  EXPECT_EQ(14, matches.size());
+  EXPECT_EQ(14ul, matches.size());
   EXPECT_EQ("45334 45356inv 45358inv 45328inv 45332 45344 45330 45344inv 45330inv 45332inv 45328 45356 45358 45334inv ",
             toString(matches));
 
   lanelet::traffic_rules::TrafficRulesPtr trafficRulesPtr =
       lanelet::traffic_rules::TrafficRulesFactory::create(lanelet::Locations::Germany, lanelet::Participants::Vehicle);
   auto compliantMatches = removeNonRuleCompliantMatches(matches, trafficRulesPtr);
-  EXPECT_EQ(8, compliantMatches.size())
+  EXPECT_EQ(8ul, compliantMatches.size())
       << "see list below: should exclude zebra crossing (pedestrian only) and inverted one way lanelets";
   EXPECT_EQ("45334 45356inv 45358inv 45332 45330 45328 45356 45358 ", toString(compliantMatches));
 }
@@ -248,10 +248,10 @@ TEST_F(Matching, filterNonCompliantProbabilistic) {  // NOLINT
 TEST_F(Matching, filterNonCompliantDeterminstic) {  // NOLINT
   using namespace lanelet::matching;
   auto matches = getDeterministicMatches(*map, obj, 4.);
-  EXPECT_EQ(14, matches.size());
+  EXPECT_EQ(14ul, matches.size());
 
   lanelet::traffic_rules::TrafficRulesPtr trafficRulesPtr =
       lanelet::traffic_rules::TrafficRulesFactory::create(lanelet::Locations::Germany, lanelet::Participants::Vehicle);
   auto compliantMatches = removeNonRuleCompliantMatches(matches, trafficRulesPtr);
-  EXPECT_EQ(8, compliantMatches.size()) << "filterNonCompliantProbabilistic for details";
+  EXPECT_EQ(8ul, compliantMatches.size()) << "filterNonCompliantProbabilistic for details";
 }
