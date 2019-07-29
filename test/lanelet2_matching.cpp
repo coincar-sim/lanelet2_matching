@@ -134,11 +134,11 @@ TEST_F(MatchingUtils, getMahalanobisDistSq) {  // NOLINT
 
   using namespace matching::utils;
   obj.vonMisesKappa = 0.5;
-  EXPECT_THROW(getMahalanobisDistSq(map->laneletLayer.get(45356), obj), MatchingError)
+  EXPECT_THROW(getMahalanobisDistSq(map->laneletLayer.get(45356), obj), MatchingError)  // NOLINT
       << "should throw on covariance = zero";
 
   obj.positionCovariance = obj.positionCovariance.Ones();
-  EXPECT_THROW(getMahalanobisDistSq(map->laneletLayer.get(45356), obj), MatchingError)
+  EXPECT_THROW(getMahalanobisDistSq(map->laneletLayer.get(45356), obj), MatchingError)  // NOLINT
       << "should throw on determinant = zero";
 
   obj.positionCovariance = obj.positionCovariance.Identity() * 2.;
