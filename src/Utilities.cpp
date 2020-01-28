@@ -54,7 +54,7 @@ double angleDifference(double targetAngle, double sourceAngle) {
 }
 
 // from https://github.com/coincar-sim/util_eigen_geometry/blob/release/src/util_eigen_geometry.cpp
-double yawFromAffine2d(const Eigen::Affine2d& pose) {
+double yawFromIsometry2d(const Eigen::Isometry2d& pose) {
   Eigen::Rotation2D<double> rot;
   rot.fromRotationMatrix(pose.linear());
   return rot.smallestAngle();
@@ -81,7 +81,7 @@ double getMahalanobisDistSq(const ConstLanelet& lanelet, const ObjectWithCovaria
   BasicPoint2d pDirection = pAfter - pBefore;
 
   double yawCenter = normalizeAngleRadians(std::atan2(pDirection.y(), pDirection.x()));
-  double yawObj = normalizeAngleRadians(yawFromAffine2d(obj.pose));
+  double yawObj = normalizeAngleRadians(yawFromIsometry2d(obj.pose));
   double yawDiff = angleDifference(yawCenter, yawObj);
 
   // using approximation orientationCovariance = 1./obj.vonMisesKappa
