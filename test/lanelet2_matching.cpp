@@ -199,6 +199,7 @@ TEST_F(Matching, deterministicConst) {  // NOLINT
 TEST_F(Matching, probabilisticNonConst) {  // NOLINT
   using namespace lanelet::matching;
   auto matches = getProbabilisticMatches(*map, obj, 4.);
+  // NOLINTNEXTLINE(clang-analyzer-cplusplus.NewDelete)
   for (size_t i = 1; i < matches.size(); i++) {
     EXPECT_TRUE(matches.at(i).mahalanobisDistSq >= matches.at(i - 1).mahalanobisDistSq) << "Not sorted at i=" << i;
   }
