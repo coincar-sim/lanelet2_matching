@@ -137,11 +137,11 @@ TEST_F(MatchingUtils, getMahalanobisDistSq) {  // NOLINT
   EXPECT_THROW(getMahalanobisDistSq(map->laneletLayer.get(45356), obj), MatchingError)  // NOLINT
       << "should throw on covariance = zero";
 
-  obj.positionCovariance = obj.positionCovariance.Ones();
+  obj.positionCovariance = matching::PositionCovariance2d::Ones();
   EXPECT_THROW(getMahalanobisDistSq(map->laneletLayer.get(45356), obj), MatchingError)  // NOLINT
       << "should throw on determinant = zero";
 
-  obj.positionCovariance = obj.positionCovariance.Identity() * 2.;
+  obj.positionCovariance = matching::PositionCovariance2d::Identity() * 2.;
   obj.vonMisesKappa = 1. / (10. / 180. * M_PI);  // covariance of 10 degrees
 
   double mahaDist45334 = getMahalanobisDistSq(map->laneletLayer.get(45334), obj);
@@ -168,7 +168,7 @@ class Matching : public MatchingUtils {
     obj.absoluteHull = absoluteHull(
         matching::Hull2d{BasicPoint2d{-1, -0.9}, BasicPoint2d{2, -0.9}, BasicPoint2d{2, 0.9}, BasicPoint2d{1, 0.9}},
         obj.pose);
-    obj.positionCovariance = obj.positionCovariance.Identity() * 2.;
+    obj.positionCovariance = matching::PositionCovariance2d::Identity() * 2.;
     obj.vonMisesKappa = 1. / (10. / 180. * M_PI);  // covariance of 10 degrees
   }
   matching::ObjectWithCovariance2d obj;
