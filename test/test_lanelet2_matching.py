@@ -63,24 +63,22 @@ class MatchingApiTestCase(unittest.TestCase):
 
         obj_matches = getDeterministicMatches(mymap, obj, 1.)
         self.assertEqual(len(obj_matches), 2)  # lanelet in both directions
-        self.assertTrue(isinstance(obj_matches[0],ConstLaneletMatch))
+        self.assertTrue(isinstance(obj_matches[0], ConstLaneletMatch))
 
         obj_with_cov_matches = getProbabilisticMatches(mymap, obj_with_cov, 1.)
         self.assertEqual(len(obj_with_cov_matches), 2)  # lanelet in both directions
-        self.assertTrue(isinstance(obj_with_cov_matches[0],ConstLaneletMatchProbabilistic))
-
+        self.assertTrue(isinstance(obj_with_cov_matches[0], ConstLaneletMatchProbabilistic))
 
         traffic_rules = lanelet2.traffic_rules.create(lanelet2.traffic_rules.Locations.Germany,
                                                       lanelet2.traffic_rules.Participants.Vehicle)
 
         obj_matches_rule_compliant = removeNonRuleCompliantMatches(obj_matches, traffic_rules)
         self.assertEqual(len(obj_matches_rule_compliant), 1)  # lanelet only in one direction
-        self.assertTrue(isinstance(obj_matches_rule_compliant[0],ConstLaneletMatch))
-
+        self.assertTrue(isinstance(obj_matches_rule_compliant[0], ConstLaneletMatch))
 
         obj_with_cov_matches_rule_compliant = removeNonRuleCompliantMatches(obj_with_cov_matches, traffic_rules)
         self.assertEqual(len(obj_with_cov_matches_rule_compliant), 1)  # lanelet only in one direction
-        self.assertTrue(isinstance(obj_with_cov_matches_rule_compliant[0],ConstLaneletMatchProbabilistic))
+        self.assertTrue(isinstance(obj_with_cov_matches_rule_compliant[0], ConstLaneletMatchProbabilistic))
         self.assertTrue(isinstance(obj_with_cov_matches_rule_compliant[0].lanelet, ConstLanelet))
         self.assertEqual(obj_with_cov_matches_rule_compliant[0].distance, 0)
         self.assertTrue(isinstance(obj_with_cov_matches_rule_compliant[0].mahalanobisDistSq, float))

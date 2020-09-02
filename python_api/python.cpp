@@ -28,17 +28,18 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+#include <lanelet2_core/LaneletMap.h>
+#include <lanelet2_core/primitives/Point.h>
+#include <lanelet2_python/internal/converter.h>
+#include <lanelet2_traffic_rules/TrafficRules.h>
+
 #include <boost/make_shared.hpp>
 #include <boost/python.hpp>
 #include <boost/python/suite/indexing/indexing_suite.hpp>
 #include <boost/python/suite/indexing/vector_indexing_suite.hpp>
 #include <boost/shared_ptr.hpp>
-
-#include <lanelet2_core/LaneletMap.h>
-#include <lanelet2_core/primitives/Point.h>
-#include <lanelet2_python/internal/converter.h>
-#include <lanelet2_traffic_rules/TrafficRules.h>
 #include <iostream>
+
 #include "lanelet2_matching/LaneletMatching.h"
 #include "lanelet2_matching/Types.h"
 
@@ -128,8 +129,9 @@ BOOST_PYTHON_MODULE(PYTHON_API_MODULE_NAME) {
                            default_call_policies(),
                            (arg("objectId") = lanelet::InvalId, arg("pose") = Pose2d::Identity(),
                             arg("absoluteHull") = boost::python::list())))
-      .add_property("absoluteHull", +[](Object2d& self) { return self.absoluteHull; }, &hullFromList,
-                    "hull in absolute coordinates (not relative to the object's pose)")
+      .add_property(
+          "absoluteHull", +[](Object2d& self) { return self.absoluteHull; }, &hullFromList,
+          "hull in absolute coordinates (not relative to the object's pose)")
       .def_readwrite("pose", &Object2d::pose)
       .def_readwrite("objectId", &Object2d::objectId);
 
