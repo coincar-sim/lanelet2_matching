@@ -73,6 +73,21 @@ Hull2d hullFromList(const boost::python::list& l) {
   return poly;
 }
 
+void clearPythonErrors() {
+  PyObject *ptype, *pvalue, *ptraceback;
+  PyErr_Fetch(&ptype, &pvalue, &ptraceback);
+  // create boost python objects from objects behind pointer, such that python does garbage collection
+  if (!!ptype) {
+    object(handle<>(ptype));
+  }
+  if (!!pvalue) {
+    object(handle<>(pvalue));
+  }
+  if (!!ptraceback) {
+    object(handle<>(ptraceback));
+  }
+}
+
 template <typename T>
 std::vector<T> removeNonRuleCompliantMatchesImpl(const boost::python::list& matchesList,
                                                  const lanelet::traffic_rules::TrafficRulesPtr& trafficRulesPtr) {
@@ -87,14 +102,12 @@ object ruleCheckWrapper(const boost::python::list& matches,
   try {
     return object(removeNonRuleCompliantMatchesImpl<ConstLaneletMatchProbabilistic>(matches, trafficRulesPtr));
   } catch (const boost::python::error_already_set&) {
-    PyObject *ptype, *pvalue, *ptraceback;
-    PyErr_Fetch(&ptype, &pvalue, &ptraceback);
+    clearPythonErrors();
   }
   try {
     return object(removeNonRuleCompliantMatchesImpl<ConstLaneletMatch>(matches, trafficRulesPtr));
   } catch (const boost::python::error_already_set&) {
-    PyObject *ptype, *pvalue, *ptraceback;
-    PyErr_Fetch(&ptype, &pvalue, &ptraceback);
+    clearPythonErrors();
   }
   throw std::runtime_error("Matches must be a list of ConstLaneletMatch(es) or ConstLaneletMatchProbabilistic(es)");
 }
