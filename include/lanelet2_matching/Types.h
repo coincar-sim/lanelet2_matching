@@ -34,6 +34,7 @@
 #include <lanelet2_core/primitives/Lanelet.h>
 #include <lanelet2_core/primitives/Point.h>
 #include <lanelet2_core/primitives/Polygon.h>
+
 #include <Eigen/Core>
 #include <Eigen/Geometry>
 

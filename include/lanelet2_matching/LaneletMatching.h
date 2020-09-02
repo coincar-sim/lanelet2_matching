@@ -30,12 +30,12 @@
 
 #pragma once
 
+#include <lanelet2_core/LaneletMap.h>
+#include <lanelet2_traffic_rules/TrafficRulesFactory.h>
+
 #include "Exceptions.h"
 #include "Types.h"
 #include "Utilities.h"
-
-#include <lanelet2_core/LaneletMap.h>
-#include <lanelet2_traffic_rules/TrafficRulesFactory.h>
 
 namespace lanelet {
 namespace matching {
