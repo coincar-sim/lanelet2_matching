@@ -74,7 +74,7 @@ Hull2d hullFromList(const boost::python::list& l) {
 }
 
 void clearPythonErrors() {
-  PyObject *ptype, *pvalue, *ptraceback;
+  PyObject *ptype, *pvalue, *ptraceback;  // NOLINT
   PyErr_Fetch(&ptype, &pvalue, &ptraceback);
   // create boost python objects from objects behind pointer, such that python does garbage collection
   if (!!ptype) {
@@ -126,7 +126,7 @@ std::vector<ConstLaneletMatchProbabilistic> (*funcWrapperProbabilistic)(const La
 }  // namespace
 using ::converters::VectorToListConverter;
 
-BOOST_PYTHON_MODULE(PYTHON_API_MODULE_NAME) {
+BOOST_PYTHON_MODULE(PYTHON_API_MODULE_NAME) {  // NOLINT
   auto core = import("lanelet2.core");
 
   class_<Pose2d>("Pose2d", "2D Isometric Transformation", no_init)
@@ -136,7 +136,7 @@ BOOST_PYTHON_MODULE(PYTHON_API_MODULE_NAME) {
 
   class_<Object2d>("Object2d", "Object with pose, hull and ID", no_init)
       .def("__init__", make_constructor(
-                           +[](lanelet::Id objectId, Pose2d pose, boost::python::list absoluteHull) {
+                           +[](lanelet::Id objectId, const Pose2d& pose, const boost::python::list& absoluteHull) {
                              return boost::make_shared<Object2d>(Object2d{objectId, pose, hullFromList(absoluteHull)});
                            },
                            default_call_policies(),
@@ -156,8 +156,8 @@ BOOST_PYTHON_MODULE(PYTHON_API_MODULE_NAME) {
   class_<ObjectWithCovariance2d, bases<Object2d>>("ObjectWithCovariance2d", "Object with pose, covariance, hull and ID",
                                                   no_init)
       .def("__init__", make_constructor(
-                           +[](lanelet::Id objectId, Pose2d pose, boost::python::list absoluteHull,
-                               PositionCovariance2d positionCovariance2d, double vonMisesKappa) {
+                           +[](lanelet::Id objectId, const Pose2d& pose, const boost::python::list& absoluteHull,
+                               const PositionCovariance2d& positionCovariance2d, double vonMisesKappa) {
                              return boost::make_shared<ObjectWithCovariance2d>(ObjectWithCovariance2d{
                                  objectId, pose, hullFromList(absoluteHull), positionCovariance2d, vonMisesKappa});
                            },
