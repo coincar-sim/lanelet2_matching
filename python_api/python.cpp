@@ -77,13 +77,13 @@ void clearPythonErrors() {
   PyObject *ptype, *pvalue, *ptraceback;  // NOLINT
   PyErr_Fetch(&ptype, &pvalue, &ptraceback);
   // create boost python objects from objects behind pointer, such that python does garbage collection
-  if (!!ptype) {
+  if (!!ptype) { // NOLINT
     object(handle<>(ptype));
   }
-  if (!!pvalue) {
+  if (!!pvalue) { // NOLINT
     object(handle<>(pvalue));
   }
-  if (!!ptraceback) {
+  if (!!ptraceback) { // NOLINT
     object(handle<>(ptraceback));
   }
 }
