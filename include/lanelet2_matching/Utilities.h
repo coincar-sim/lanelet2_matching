@@ -30,12 +30,12 @@
 
 #pragma once
 
-#include "Exceptions.h"
-#include "Types.h"
-
 #include <lanelet2_core/LaneletMap.h>
 #include <lanelet2_core/geometry/LaneletMap.h>
 #include <lanelet2_core/geometry/Polygon.h>
+
+#include "Exceptions.h"
+#include "Types.h"
 
 namespace lanelet {
 namespace matching {

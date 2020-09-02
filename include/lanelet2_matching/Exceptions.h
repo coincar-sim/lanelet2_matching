@@ -32,6 +32,7 @@
 
 #include <lanelet2_core/Exceptions.h>
 #include <lanelet2_core/Forward.h>
+
 #include <stdexcept>
 
 namespace lanelet {

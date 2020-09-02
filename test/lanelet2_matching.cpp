@@ -28,14 +28,13 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include "gtest/gtest.h"
-
-#include "LaneletMatching.h"
-
 #include <lanelet2_io/Io.h>
 #include <lanelet2_projection/UTM.h>
 #include <lanelet2_traffic_rules/TrafficRules.h>
 #include <lanelet2_traffic_rules/TrafficRulesFactory.h>
+
+#include "LaneletMatching.h"
+#include "gtest/gtest.h"
 
 using namespace lanelet;
 

@@ -29,10 +29,11 @@
  */
 
 #include "LaneletMatching.h"
-#include "Utilities.h"
 
 #include <lanelet2_core/geometry/Lanelet.h>
 #include <lanelet2_core/geometry/Polygon.h>
+
+#include "Utilities.h"
 
 namespace {
 template <typename LaneletT, typename MatchT>
