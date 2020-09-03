@@ -151,22 +151,22 @@ BOOST_PYTHON_MODULE(PYTHON_API_MODULE_NAME) {  // NOLINT
                                                   no_init)
       .def("__init__", make_constructor(
                            +[](lanelet::Id objectId, const Pose2d& pose, const boost::python::list& absoluteHull,
-                               const PositionCovariance2d& positionCovariance2d, double vonMisesKappa) {
+                               const PositionCovariance2d& positionCovariance, double vonMisesKappa) {
                              ObjectWithCovariance2d obj;
                              obj.objectId = objectId;
                              obj.pose = pose;
                              obj.absoluteHull = hullFromList(absoluteHull);
-                             obj.positionCovariance2d = positionCovariance2d;
+                             obj.positionCovariance = positionCovariance;
                              obj.vonMisesKappa = vonMisesKappa;
                              return boost::make_shared<ObjectWithCovariance2d>(obj);
                              // initializer list construction of derived struct requires cpp17
                              // return boost::make_shared<ObjectWithCovariance2d>(ObjectWithCovariance2d{
-                             //     objectId, pose, hullFromList(absoluteHull), positionCovariance2d, vonMisesKappa});
+                             //     objectId, pose, hullFromList(absoluteHull), positionCovariance, vonMisesKappa});
                            },
                            default_call_policies(),
                            (arg("objectId") = lanelet::InvalId, arg("pose") = Pose2d::Identity(),
                             arg("absoluteHull") = boost::python::list(),
-                            arg("positionCovariance2d") = PositionCovariance2d(), arg("vonMisesKappa") = 0.)))
+                            arg("positionCovariance") = PositionCovariance2d(), arg("vonMisesKappa") = 0.)))
       .def_readwrite("vonMisesKappa", &ObjectWithCovariance2d::vonMisesKappa)
       .def_readwrite("positionCovariance", &ObjectWithCovariance2d::positionCovariance);
 
