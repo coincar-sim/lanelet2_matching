@@ -103,7 +103,7 @@ object ruleCheckWrapper(const boost::python::list& matches,
   } catch (const boost::python::error_already_set&) {
     clearPythonErrors();
   }
-  throw std::runtime_error("Matches must be a list of ConstLaneletMatch(es) or ConstLaneletMatchProbabilistic(es)");
+  throw std::runtime_error("Matches must be a list of ConstLaneletMatch(es) or ConstLaneletMatch(es)Probabilistic");
 }
 
 boost::shared_ptr<PositionCovariance2d> covFromVarXVarYCovXY(const double varX, const double varY, const double covXY) {
