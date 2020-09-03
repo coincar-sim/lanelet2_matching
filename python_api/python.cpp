@@ -55,12 +55,6 @@ std::string printPoseWrapper(const Pose2d& p) {
   return oss.str();
 }
 
-std::string printCovWrapper(const PositionCovariance2d& p) {
-  std::ostringstream oss;
-  oss << p;
-  return oss.str();
-}
-
 boost::shared_ptr<Pose2d> createPose(const double x, const double y, const double phi) {
   Eigen::Rotation2Dd rot(phi);
   auto ptr = boost::make_shared<Pose2d>(rot);
@@ -151,7 +145,7 @@ BOOST_PYTHON_MODULE(PYTHON_API_MODULE_NAME) {  // NOLINT
   class_<PositionCovariance2d>("PositionCovariance2d", init<>())
       .def("__init__", make_constructor(&covFromVarXVarYCovXY, default_call_policies(),
                                         (arg("varX") = 0., arg("varY") = 0., arg("covXY") = 0.)))
-      .def("__str__", &printCovWrapper);
+      .def(self_ns::str(self_ns::self));
 
   class_<ObjectWithCovariance2d, bases<Object2d>>("ObjectWithCovariance2d", "Object with pose, covariance, hull and ID",
                                                   no_init)
