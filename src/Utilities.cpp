@@ -32,16 +32,20 @@
 
 #include <lanelet2_core/geometry/Lanelet.h>
 #include <lanelet2_core/geometry/Polygon.h>
+#include <math.h>
 
 namespace {
 
 // from https://github.com/coincar-sim/util_eigen_geometry/blob/release/src/util_eigen_geometry.cpp
+// Result is always positive; not similar to fmod()
 double positiveFloatModulo(double x, double y) {
-  if (std::abs(y) < 10.e-9) {
-    return std::abs(x);
+  double fmod = std::fmod(x, y);
+  if (fmod > 0.) {
+    return fmod;
   }
-  // Result is always positive; not similar to fmod()
-  return x - y * floor(x / y);
+  double fmodPositive = fmod + std::abs(y);
+  assert(fmodPositive > 0.);
+  return fmodPositive;
 }
 
 // from https://github.com/coincar-sim/util_eigen_geometry/blob/release/src/util_eigen_geometry.cpp
