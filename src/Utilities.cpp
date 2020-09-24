@@ -32,7 +32,8 @@
 
 #include <lanelet2_core/geometry/Lanelet.h>
 #include <lanelet2_core/geometry/Polygon.h>
-#include <math.h>
+
+#include <cmath>
 
 namespace {
 
