@@ -83,6 +83,13 @@ class MatchingApiTestCase(unittest.TestCase):
         self.assertEqual(obj_with_cov_matches_rule_compliant[0].distance, 0)
         self.assertTrue(isinstance(obj_with_cov_matches_rule_compliant[0].mahalanobisDistSq, float))
 
+        # empty matches list
+        empty_matches_rule_compliant = removeNonRuleCompliantMatches(list(), traffic_rules)
+        self.assertEqual(len(empty_matches_rule_compliant), 0)
+
+        # list of neither matches nor probabilistic matches
+        self.assertRaises(RuntimeError, removeNonRuleCompliantMatches, [obj], traffic_rules)
+
 
 if __name__ == '__main__':
     unittest.main()

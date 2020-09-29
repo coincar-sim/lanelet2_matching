@@ -77,8 +77,8 @@ TEST_F(MatchingUtils, fixtureSetupSuccessful) {  // NOLINT
 TEST_F(MatchingUtils, absoluteHull) {  // NOLINT
   matching::Object2d obj;
 
-  obj.pose.translation() = BasicPoint2d{10, 0};                        //!< at point x=10 y=0
-  obj.pose.linear() = Eigen::Rotation2D<double>(0.5 * M_PI).matrix();  //!< rotated by pi/2
+  obj.pose.translation() = BasicPoint2d{10, 0};                         //!< at point x=10 y=0
+  obj.pose.linear() = Eigen::Rotation2D<double>(-1.5 * M_PI).matrix();  //!< rotated by pi/2 (=-3pi/2)
 
   obj.absoluteHull = absoluteHull(matching::Hull2d{BasicPoint2d{-0.5, -1}, BasicPoint2d{2, 1}}, obj.pose);
 
