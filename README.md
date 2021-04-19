@@ -1,3 +1,9 @@
+# Lanelet2 Matching is now part of [Lanelet2](https://github.com/fzi-forschungszentrum-informatik/Lanelet2).
+
+This repo is archived.
+
+---
+
 # Lanelet2 Matching
 
 [![Build Status](https://api.travis-ci.org/coincar-sim/lanelet2_matching.svg)](https://travis-ci.org/coincar-sim/lanelet2_matching)
